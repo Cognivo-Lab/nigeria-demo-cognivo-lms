@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nigeria Demo · Cognivo LMS — Design Wireframe</title>
+<style>
+  /* ===== Design tokens (DESIGN.md §3). Light default; dark via OS and via
+     explicit [data-theme="dark"]. The toggle wins over the OS both ways. ===== */
+  :root{
+    color-scheme: light;
+    --page:#f9fafb; --surface:#ffffff; --surface-raised:#f6f7f9;
+    --ink:#16181d; --ink-secondary:#51555e; --ink-muted:#6b7079;
+    --brand:#4f46e5; --brand-ink:#ffffff; --link:#3730b3; --focus:#4338ca;
+    --success:#136c2e; --danger:#b42318; --warn-ink:#8a5a00;
+    --border:#e4e6ea; --border-control:#8a8f99; --chip-bg:#eef0fb; --clamshell:#f5c518;
+    /* chart palette — validated both modes (DESIGN.md §9) */
+    --c1:#2a78d6; --c2:#eb6834; --c3:#1baf7a; --c4:#eda100; --c5:#e87ba4;
+    --grid:#e1e0d9; --axis:#c3c2b7;
+    --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px;
+    --r-md:10px; --r-lg:16px; --r-pill:999px;
+    --shadow-1:0 6px 24px rgba(16,24,40,.12);
+    --maxw:1200px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --page:#0e1013; --surface:#15171c; --surface-raised:#1d2026;
+      --ink:#e9eaee; --ink-secondary:#b4b8c0; --ink-muted:#9095a0;
+      --brand:#4f46e5; --brand-ink:#ffffff; --link:#a5b4fc; --focus:#a5b4fc;
+      --success:#4ade80; --danger:#fca5a5; --warn-ink:#fcd34d;
+      --border:#2a2e36; --border-control:#6a6f7a; --chip-bg:#262a4d;
+      --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; --c5:#d55181;
+      --grid:#2c2c2a; --axis:#383835;
+      --shadow-1:0 6px 24px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page:#0e1013; --surface:#15171c; --surface-raised:#1d2026;
+    --ink:#e9eaee; --ink-secondary:#b4b8c0; --ink-muted:#9095a0;
+    --brand:#4f46e5; --brand-ink:#ffffff; --link:#a5b4fc; --focus:#a5b4fc;
+    --success:#4ade80; --danger:#fca5a5; --warn-ink:#fcd34d;
+    --border:#2a2e36; --border-control:#6a6f7a; --chip-bg:#262a4d;
+    --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; --c5:#d55181;
+    --grid:#2c2c2a; --axis:#383835;
+    --shadow-1:0 6px 24px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--page); color:var(--ink);
+    font:400 16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-text-size-adjust:100%;
+  }
+  h1,h2,h3{margin:0 0 var(--s3); line-height:1.2;}
+  h1{font-size:1.5rem; font-weight:700;}
+  h2{font-size:1.25rem; font-weight:650;}
+  h3{font-size:1.0625rem; font-weight:600;}
+  p{margin:0 0 var(--s3); color:var(--ink-secondary);}
+  a{color:var(--link);}
+  .muted{color:var(--ink-muted); font-size:.875rem;}
+  .tnum{font-variant-numeric:tabular-nums;}
+  .wrap{overflow-wrap:anywhere;}
+
+  /* focus — never removed without a visible replacement */
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible,input:focus-visible,
+  select:focus-visible,.card:focus-visible{
+    outline:2px solid var(--focus); outline-offset:2px; border-radius:6px;
+  }
+
+  .skip{position:absolute; left:var(--s4); top:-60px; background:var(--surface);
+    color:var(--link); padding:var(--s2) var(--s4); border:1px solid var(--border-control);
+    border-radius:var(--r-md); z-index:100; transition:top .15s;}
+  .skip:focus{top:var(--s4);}
+
+  .shell{max-width:var(--maxw); margin:0 auto; width:100%; padding:0 var(--s4);}
+  @media (min-width:640px){ .shell{padding:0 var(--s5);} }
+  @media (min-width:1024px){ .shell{padding:0 var(--s6);} }
+
+  header.banner{position:sticky; top:0; z-index:20; background:var(--surface);
+    border-bottom:1px solid var(--border);}
+  .bar{display:flex; flex-wrap:wrap; align-items:center; gap:var(--s3);
+    padding:var(--s3) 0; min-height:56px;}
+  .brand{display:flex; align-items:center; gap:var(--s2); font-weight:700;
+    font-size:1.0625rem; color:var(--ink); text-decoration:none; margin-right:auto; min-width:0;}
+  .brand .mk{display:grid; place-items:center; width:30px; height:30px; flex:0 0 auto;
+    background:var(--brand); color:var(--brand-ink); border-radius:8px; font-weight:800;}
+  .persona-badge{font-size:.8125rem; color:var(--ink-secondary);
+    background:var(--surface-raised); border:1px solid var(--border);
+    padding:4px var(--s2); border-radius:var(--r-pill);}
+
+  /* segmented theme control */
+  .seg{display:inline-flex; border:1px solid var(--border-control); border-radius:var(--r-md);
+    overflow:hidden;}
+  .seg button{appearance:none; border:0; background:var(--surface); color:var(--ink-secondary);
+    font:inherit; font-size:.8125rem; padding:6px 10px; cursor:pointer; min-height:36px;}
+  .seg button+button{border-left:1px solid var(--border);}
+  .seg button[aria-pressed="true"]{background:var(--brand); color:var(--brand-ink);}
+
+  /* nav as tablist switching "screens" */
+  nav.tabs{border-bottom:1px solid var(--border); background:var(--surface);}
+  .tablist{display:flex; flex-wrap:wrap; gap:var(--s1); padding:var(--s2) 0;}
+  .tablist [role=tab]{appearance:none; border:0; background:transparent; color:var(--ink-secondary);
+    font:inherit; font-weight:600; font-size:.9375rem; padding:8px var(--s3); border-radius:var(--r-md);
+    cursor:pointer; min-height:40px;}
+  .tablist [role=tab][aria-selected=true]{color:var(--brand); background:var(--chip-bg);}
+  :root[data-theme="dark"] .tablist [role=tab][aria-selected=true],
+  :root:not([data-theme="light"]) .tablist [role=tab][aria-selected=true]{color:var(--link);}
+
+  main{padding:var(--s5) 0 var(--s7);}
+  [role=tabpanel][hidden]{display:none;}
+  .lead{color:var(--ink-muted); font-size:.875rem; margin:-8px 0 var(--s5);}
+
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg);
+    padding:var(--s4);}
+  .grid{display:grid; gap:var(--s4);}
+  .cols{grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));}
+  .cols-sm{grid-template-columns:repeat(auto-fit,minmax(min(100%,9rem),1fr));}
+  .grid>*{min-width:0;}
+
+  .btn{appearance:none; font:inherit; font-weight:600; cursor:pointer; min-height:44px;
+    padding:10px var(--s4); border-radius:var(--r-md); border:1px solid transparent;
+    display:inline-flex; align-items:center; gap:var(--s2);}
+  .btn.primary{background:var(--brand); color:var(--brand-ink); border-color:var(--border-control);}
+  .btn.ghost{background:var(--surface); color:var(--link); border-color:var(--border-control);}
+  .btn.danger{background:var(--surface); color:var(--danger); border-color:var(--border-control);}
+
+  .chip{display:inline-flex; align-items:center; gap:6px; font-size:.8125rem; font-weight:600;
+    color:var(--link); background:var(--chip-bg); padding:3px 10px; border-radius:var(--r-pill);}
+  .badge{display:inline-flex; align-items:center; gap:6px; font-size:.75rem; font-weight:600;
+    color:var(--ink-secondary); background:var(--surface-raised); border:1px solid var(--border);
+    padding:2px 8px; border-radius:var(--r-pill);}
+  .ok{color:var(--success);} .bad{color:var(--danger);} .warn{color:var(--warn-ink);}
+
+  .stat{background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg);
+    padding:var(--s4);}
+  .stat .n{font-size:1.75rem; font-weight:700; letter-spacing:-.01em;}
+  .stat .l{color:var(--ink-muted); font-size:.8125rem; margin-top:2px;}
+
+  input,select{font:inherit; color:var(--ink); background:var(--surface);
+    border:1px solid var(--border-control); border-radius:var(--r-md); padding:10px var(--s3);
+    min-height:44px; width:100%;}
+  label{display:block; font-size:.875rem; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .field-err{color:var(--danger); font-size:.8125rem; margin-top:4px;}
+
+  .progress{height:8px; background:var(--surface-raised); border-radius:var(--r-pill); overflow:hidden;}
+  .progress>span{display:block; height:100%; background:var(--brand);}
+
+  .thread{border-left:3px solid var(--border); padding-left:var(--s4);}
+  .reply{margin:var(--s3) 0 0 var(--s4); padding-left:var(--s4); border-left:3px solid var(--brand);}
+
+  .table-scroll{overflow-x:auto;}
+  table{border-collapse:collapse; width:100%; min-width:34rem;}
+  caption{text-align:left; font-size:.8125rem; color:var(--ink-muted); padding-bottom:var(--s2);}
+  th,td{text-align:left; padding:10px var(--s3); border-bottom:1px solid var(--border);
+    font-size:.9375rem; white-space:nowrap;}
+  thead th{background:var(--surface-raised); font-size:.8125rem; color:var(--ink-secondary);}
+
+  footer.site{border-top:1px solid var(--border); background:var(--surface); margin-top:var(--s7);}
+  footer.site .bar{align-items:flex-start; flex-direction:column; gap:var(--s2);
+    padding:var(--s5) 0 88px;} /* bottom pad so the fixed clam shell never occludes links at 375px */
+
+  svg.chart{width:100%; height:auto; display:block;}
+  .legend{display:flex; flex-wrap:wrap; gap:var(--s3); font-size:.8125rem; color:var(--ink-secondary);
+    margin-top:var(--s2);}
+  .legend .sw{display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px;
+    vertical-align:-1px;}
+
+  /* hero */
+  .hero{display:grid; gap:var(--s4); padding:var(--s6) 0;}
+  .hero h1{font-size:2rem; line-height:1.15;}
+  @media (max-width:420px){ .hero h1{font-size:1.5rem;} }
+  .cta-row{display:flex; flex-wrap:wrap; gap:var(--s3);}
+
+  /* clam shell — homepage only, bottom-right, interactive + labelled */
+  .clam{position:fixed; right:16px; bottom:16px; z-index:40; width:56px; height:56px;
+    padding:0; border:0; background:transparent; cursor:pointer;
+    filter:drop-shadow(0 4px 10px rgba(0,0,0,.25));}
+  .clam svg{width:56px; height:56px; display:block;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important; scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="banner">
+  <div class="shell bar">
+    <a class="brand" href="#main"><span class="mk" aria-hidden="true">C</span>
+      <span class="wrap">Nigeria&nbsp;Demo</span></a>
+    <span class="persona-badge">Viewing as: Registered learner</span>
+    <div class="seg" role="group" aria-label="Appearance">
+      <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+      <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+      <button type="button" data-theme-set="system" aria-pressed="true">System</button>
+    </div>
+  </div>
+  <nav class="tabs" aria-label="Demo screens">
+    <div class="shell">
+      <div class="tablist" role="tablist" aria-label="Demo screens">
+        <button role="tab" id="t-home" aria-controls="p-home" aria-selected="true">Home</button>
+        <button role="tab" id="t-cat" aria-controls="p-cat" aria-selected="false" tabindex="-1">Catalogue</button>
+        <button role="tab" id="t-course" aria-controls="p-course" aria-selected="false" tabindex="-1">Course + feedback</button>
+        <button role="tab" id="t-learner" aria-controls="p-learner" aria-selected="false" tabindex="-1">Learner dashboard</button>
+        <button role="tab" id="t-provider" aria-controls="p-provider" aria-selected="false" tabindex="-1">Provider</button>
+        <button role="tab" id="t-owner" aria-controls="p-owner" aria-selected="false" tabindex="-1">Owner cockpit</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="shell">
+
+  <!-- ===================== HOME ===================== -->
+  <section role="tabpanel" id="p-home" aria-labelledby="t-home" tabindex="0">
+    <div class="hero">
+      <span class="chip">White-label · deployable</span>
+      <h1>From browsing a catalogue to holding a certificate — on your own branded platform.</h1>
+      <p class="wrap">Cognivo takes a learner the whole way through content, quizzes and an optional
+        certification test, and gives providers and the platform owner honest analytics on whether it
+        actually happened.</p>
+      <div class="cta-row">
+        <button class="btn primary" type="button">Explore the catalogue</button>
+        <button class="btn ghost" type="button">See the demo</button>
+      </div>
+    </div>
+    <div class="grid cols" aria-label="Capabilities">
+      <div class="card"><h3>Completion → credential</h3><p>Every course ends in a verifiable certificate, with progress always visible.</p></div>
+      <div class="card"><h3>Four-persona oversight</h3><p>Potential learner, learner, provider and owner — each with a tailored cockpit.</p></div>
+      <div class="card"><h3>AI learning roadmap</h3><p>A suggested path built from a learner's activity. Offline-safe by default.</p></div>
+      <div class="card"><h3>Brandable &amp; exportable</h3><p>Your name, your data, dashboards that export to CSV and PDF.</p></div>
+    </div>
+  </section>
+
+  <!-- ===================== CATALOGUE ===================== -->
+  <section role="tabpanel" id="p-cat" aria-labelledby="t-cat" tabindex="0" hidden>
+    <h1>Catalogue</h1>
+    <p class="lead">Potential-learner view — public, no sign-in. Searchable, filterable, recommended.</p>
+    <form class="grid cols" style="margin-bottom:var(--s5)" onsubmit="return false">
+      <div><label for="q">Search courses</label><input id="q" type="search" placeholder="e.g. data analysis"></div>
+      <div><label for="dom">Domain</label><select id="dom"><option>All domains</option><option>Data &amp; Analytics</option><option>Business</option><option>Health</option></select></div>
+      <div><label for="fmt">Format</label><select id="fmt"><option>Any format</option><option>Video</option><option>Reading</option><option>Quiz</option><option>Mixed</option></select></div>
+    </form>
+    <div class="grid cols">
+      <article class="card">
+        <div class="badge">▶ Video + reading</div>
+        <h3 style="margin-top:var(--s2)">Foundations of Data Analysis</h3>
+        <p class="muted">Lagos Data Institute · Beginner · 6h</p>
+        <p><span aria-label="Rated 4.6 of 5">★ 4.6</span> <span class="muted">(312)</span></p>
+        <div class="cta-row">
+          <button class="btn primary" type="button">View course</button>
+          <button class="btn ghost" type="button" aria-pressed="false">♡ Wishlist</button>
+        </div>
+      </article>
+      <article class="card">
+        <div class="badge">▶ Video</div>
+        <h3 style="margin-top:var(--s2)">Public Health Essentials</h3>
+        <p class="muted">Abuja School of Health · Intermediate · 8h</p>
+        <p><span aria-label="Rated 4.4 of 5">★ 4.4</span> <span class="muted">(188)</span></p>
+        <div class="cta-row">
+          <button class="btn primary" type="button">View course</button>
+          <button class="btn ghost" type="button" aria-pressed="true">♥ Wishlisted</button>
+        </div>
+      </article>
+      <article class="card">
+        <div class="badge">✎ Reading + quiz</div>
+        <h3 style="margin-top:var(--s2)">Small Business Accounting</h3>
+        <p class="muted">Enterprise Academy · Beginner · 4h</p>
+        <p><span aria-label="Rated 4.8 of 5">★ 4.8</span> <span class="muted">(421)</span></p>
+        <div class="cta-row">
+          <button class="btn primary" type="button">View course</button>
+          <button class="btn ghost" type="button" aria-pressed="false">♡ Wishlist</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== COURSE + FEEDBACK THREAD ===================== -->
+  <section role="tabpanel" id="p-course" aria-labelledby="t-course" tabindex="0" hidden>
+    <h1>Foundations of Data Analysis</h1>
+    <p class="lead">Course detail · Reviews tab showing the completion-gated feedback thread.</p>
+    <div class="grid" style="grid-template-columns:1fr;">
+      <div class="card">
+        <h2>Learner reviews</h2>
+        <p><strong style="font-size:1.5rem" class="tnum">4.6</strong> <span aria-label="4.6 of 5">★★★★★</span> <span class="muted">· 312 reviews</span></p>
+        <div class="thread" style="margin-top:var(--s4)">
+          <p style="margin-bottom:4px"><strong>Amina O.</strong> <span class="badge">✓ Completed</span> · <span aria-label="Rated 5 of 5">★ 5</span></p>
+          <p>Clear, practical, and the quizzes actually reinforced the reading. The certification test felt fair.</p>
+          <div class="reply">
+            <p style="margin-bottom:4px"><strong>Lagos Data Institute</strong> <span class="badge">Provider</span></p>
+            <p>Thank you Amina — we've added the extra SQL worksheet you asked for to Module 3.</p>
+          </div>
+        </div>
+        <hr style="border:0;border-top:1px solid var(--border);margin:var(--s4) 0">
+        <div class="card" style="background:var(--surface-raised)">
+          <h3>Leave feedback</h3>
+          <p class="warn">⚠ Available after you complete this course. You're at 60% — finish the last two lessons to review.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LEARNER DASHBOARD ===================== -->
+  <section role="tabpanel" id="p-learner" aria-labelledby="t-learner" tabindex="0" hidden>
+    <h1>Your learning</h1>
+    <p class="lead">Registered-learner cockpit — populated from seeded history on first paint.</p>
+    <div class="grid cols-sm" style="margin-bottom:var(--s5)">
+      <div class="stat"><div class="n tnum">7</div><div class="l">Enrolled</div></div>
+      <div class="stat"><div class="n tnum">4</div><div class="l">Completed</div></div>
+      <div class="stat"><div class="n tnum">3</div><div class="l">Certificates</div></div>
+      <div class="stat"><div class="n tnum">88%</div><div class="l">Avg test score</div></div>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr))">
+      <div class="card">
+        <h3>Weekly activity</h3>
+        <!-- LineTrend: single series, no legend needed; direct end-label -->
+        <svg class="chart" viewBox="0 0 320 140" role="img" aria-label="Lessons completed per week, trending from 2 up to 9 over eight weeks.">
+          <line x1="34" y1="112" x2="312" y2="112" stroke="var(--axis)" stroke-width="1"/>
+          <line x1="34" y1="20" x2="34" y2="112" stroke="var(--axis)" stroke-width="1"/>
+          <polyline fill="none" stroke="var(--c1)" stroke-width="2"
+            points="34,100 74,92 114,96 154,74 194,66 234,52 274,40 306,30"/>
+          <circle cx="306" cy="30" r="4" fill="var(--c1)"/>
+          <text x="300" y="22" font-size="11" fill="var(--ink)" text-anchor="end">9</text>
+          <text x="34" y="128" font-size="10" fill="var(--ink-muted)">W1</text>
+          <text x="300" y="128" font-size="10" fill="var(--ink-muted)" text-anchor="end">W8</text>
+        </svg>
+      </div>
+      <div class="card">
+        <h3>Continue learning</h3>
+        <p style="margin-bottom:4px"><strong>Foundations of Data Analysis</strong></p>
+        <div class="progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Foundations of Data Analysis 60% complete"><span style="width:60%"></span></div>
+        <p class="muted" style="margin-top:4px">60% · 2 lessons left</p>
+        <p style="margin:var(--s3) 0 4px"><strong>Public Health Essentials</strong></p>
+        <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="Public Health Essentials 25% complete"><span style="width:25%"></span></div>
+        <p class="muted" style="margin-top:4px">25% · 6 lessons left</p>
+      </div>
+      <div class="card">
+        <h3>Suggested roadmap</h3>
+        <p class="muted">Generated from your activity — a suggested path, not a guarantee.</p>
+        <ol style="padding-left:1.1rem; margin:0; color:var(--ink-secondary)">
+          <li>Intermediate SQL <span class="muted">— builds on your completed course</span></li>
+          <li>Data Visualisation <span class="muted">— fills a gap in your domain</span></li>
+          <li>Statistics for Analysts <span class="muted">— next difficulty step</span></li>
+        </ol>
+        <button class="btn ghost" type="button" style="margin-top:var(--s3)">Regenerate</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROVIDER ===================== -->
+  <section role="tabpanel" id="p-provider" aria-labelledby="t-provider" tabindex="0" hidden>
+    <h1>Course analytics</h1>
+    <p class="lead">Provider cockpit — wishlist demand, active progress, completion and the certification funnel.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr))">
+      <div class="card">
+        <h3>Certification funnel — Foundations of Data Analysis</h3>
+        <!-- Funnel as labelled horizontal bars; direct value labels (relief rule) -->
+        <svg class="chart" viewBox="0 0 320 170" role="img" aria-label="Certification funnel: 420 enrolled, 268 completed, 190 test scheduled, 150 passed, 150 certified.">
+          <g font-size="11">
+            <rect x="8" y="8"  width="300" height="22" rx="4" fill="var(--c1)"/><text x="14" y="23" fill="#fff">Enrolled · 420</text>
+            <rect x="8" y="38" width="191" height="22" rx="4" fill="var(--c1)"/><text x="14" y="53" fill="#fff">Completed · 268</text>
+            <rect x="8" y="68" width="136" height="22" rx="4" fill="var(--c1)"/><text x="150" y="83" fill="var(--ink)">Scheduled · 190</text>
+            <rect x="8" y="98" width="107" height="22" rx="4" fill="var(--c1)"/><text x="121" y="113" fill="var(--ink)">Passed · 150</text>
+            <rect x="8" y="128" width="107" height="22" rx="4" fill="var(--c3)"/><text x="121" y="143" fill="var(--ink)">Certified · 150</text>
+          </g>
+        </svg>
+      </div>
+      <div class="card">
+        <h3>Your courses</h3>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Per-course metrics, scrollable">
+          <table>
+            <caption>Wishlist, active learners, completions and pass-rate per course</caption>
+            <thead><tr><th scope="col">Course</th><th scope="col">Wishlist</th><th scope="col">Active</th><th scope="col">Completed</th><th scope="col">Pass&nbsp;rate</th></tr></thead>
+            <tbody>
+              <tr><td>Foundations of Data Analysis</td><td class="tnum">214</td><td class="tnum">96</td><td class="tnum">268</td><td class="tnum ok">79%</td></tr>
+              <tr><td>Intermediate SQL</td><td class="tnum">142</td><td class="tnum">61</td><td class="tnum">133</td><td class="tnum ok">74%</td></tr>
+              <tr><td>Data Visualisation</td><td class="tnum">98</td><td class="tnum">40</td><td class="tnum">71</td><td class="tnum warn">63%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OWNER ===================== -->
+  <section role="tabpanel" id="p-owner" aria-labelledby="t-owner" tabindex="0" hidden>
+    <h1>Platform overview</h1>
+    <p class="lead">Owner cockpit — quality, attendance/completion, and testing success rates. The buyer's future view.</p>
+    <div class="grid cols-sm" style="margin-bottom:var(--s5)">
+      <div class="stat"><div class="n tnum">1,840</div><div class="l">Active learners</div></div>
+      <div class="stat"><div class="n tnum">63%</div><div class="l">Completion rate</div></div>
+      <div class="stat"><div class="n tnum">71%</div><div class="l">Test success</div></div>
+      <div class="stat"><div class="n tnum">4.6</div><div class="l">Avg quality</div></div>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr))">
+      <div class="card">
+        <h3>Completion by domain</h3>
+        <!-- BarCompare with direct value labels + table view below (relief rule) -->
+        <svg class="chart" viewBox="0 0 320 150" role="img" aria-label="Completion rate by domain: Data 68%, Business 61%, Health 59%, Tech 52%.">
+          <g font-size="11">
+            <rect x="8"   y="20" width="46" height="110" rx="4" fill="var(--c1)" transform="translate(0,0)"/>
+            <rect x="8"   y="47" width="46" height="83"  rx="4" fill="var(--c1)"/><text x="31" y="40" text-anchor="middle" fill="var(--ink)">68%</text>
+            <rect x="86"  y="60" width="46" height="70"  rx="4" fill="var(--c2)"/><text x="109" y="53" text-anchor="middle" fill="var(--ink)">61%</text>
+            <rect x="164" y="64" width="46" height="66"  rx="4" fill="var(--c3)"/><text x="187" y="57" text-anchor="middle" fill="var(--ink)">59%</text>
+            <rect x="242" y="78" width="46" height="52"  rx="4" fill="var(--c4)"/><text x="265" y="71" text-anchor="middle" fill="var(--ink)">52%</text>
+            <line x1="4" y1="130" x2="300" y2="130" stroke="var(--axis)"/>
+            <text x="31"  y="144" text-anchor="middle" font-size="10" fill="var(--ink-muted)">Data</text>
+            <text x="109" y="144" text-anchor="middle" font-size="10" fill="var(--ink-muted)">Business</text>
+            <text x="187" y="144" text-anchor="middle" font-size="10" fill="var(--ink-muted)">Health</text>
+            <text x="265" y="144" text-anchor="middle" font-size="10" fill="var(--ink-muted)">Tech</text>
+          </g>
+        </svg>
+        <details style="margin-top:var(--s2)"><summary class="muted">View as table</summary>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Completion by domain table">
+            <table style="min-width:0"><thead><tr><th scope="col">Domain</th><th scope="col">Completion</th></tr></thead>
+            <tbody><tr><td>Data</td><td class="tnum">68%</td></tr><tr><td>Business</td><td class="tnum">61%</td></tr><tr><td>Health</td><td class="tnum">59%</td></tr><tr><td>Tech</td><td class="tnum">52%</td></tr></tbody></table>
+          </div>
+        </details>
+      </div>
+      <div class="card">
+        <h3>Enrolments vs completions</h3>
+        <svg class="chart" viewBox="0 0 320 150" role="img" aria-label="Enrolments and completions by month over six months; both rising, completions tracking below enrolments.">
+          <line x1="30" y1="120" x2="312" y2="120" stroke="var(--axis)"/>
+          <polyline fill="none" stroke="var(--c1)" stroke-width="2" points="30,96 86,86 142,78 198,64 254,52 306,42"/>
+          <polyline fill="none" stroke="var(--c2)" stroke-width="2" points="30,110 86,104 142,98 198,90 254,82 306,74"/>
+          <circle cx="306" cy="42" r="3.5" fill="var(--c1)"/><circle cx="306" cy="74" r="3.5" fill="var(--c2)"/>
+        </svg>
+        <div class="legend">
+          <span><span class="sw" style="background:var(--c1)"></span>Enrolments</span>
+          <span><span class="sw" style="background:var(--c2)"></span>Completions</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="shell bar">
+    <div><strong>Nigeria Demo</strong> <span class="muted">· powered by Cognivo LMS</span></div>
+    <div class="muted wrap">Data stored in region: eu-west · <a href="#main">Privacy</a> · <a href="#main">Terms</a> · <a href="#main">Cookie settings</a></div>
+  </div>
+</footer>
+
+<!-- Clam shell — homepage flourish, bottom-right, interactive + labelled -->
+<button class="clam" type="button" aria-label="Cognivo — back to top" id="clam">
+  <svg viewBox="0 0 64 64" aria-hidden="true">
+    <path d="M32 54 C14 54 4 40 4 28 L60 28 C60 40 50 54 32 54 Z" fill="var(--clamshell)" stroke="#16181d" stroke-width="2"/>
+    <path d="M32 28 L18 30 M32 28 L25 31 M32 28 L32 32 M32 28 L39 31 M32 28 L46 30" stroke="#16181d" stroke-width="1.5" fill="none"/>
+    <path d="M22 28 C22 20 28 14 32 14 C36 14 42 20 42 28" fill="none" stroke="#16181d" stroke-width="2"/>
+  </svg>
+</button>
+
+<script>
+(function(){
+  "use strict";
+  // ---- Theme toggle (Light / Dark / System), persisted ----
+  var root = document.documentElement;
+  var segBtns = Array.prototype.slice.call(document.querySelectorAll('[data-theme-set]'));
+  function applyTheme(mode){
+    if(mode === 'system'){ root.setAttribute('data-theme','system'); }
+    else { root.setAttribute('data-theme', mode); }
+    segBtns.forEach(function(b){
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-theme-set') === mode));
+    });
+    try{ localStorage.setItem('cognivo-theme', mode); }catch(e){}
+  }
+  segBtns.forEach(function(b){
+    b.addEventListener('click', function(){ applyTheme(b.getAttribute('data-theme-set')); });
+  });
+  var saved = 'system';
+  try{ saved = localStorage.getItem('cognivo-theme') || 'system'; }catch(e){}
+  applyTheme(saved);
+
+  // ---- Tabs: screen switcher with roving tabindex + arrow keys ----
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role=tab]'));
+  function selectTab(tab){
+    tabs.forEach(function(t){
+      var sel = t === tab;
+      t.setAttribute('aria-selected', String(sel));
+      t.tabIndex = sel ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if(panel){ panel.hidden = !sel; }
+    });
+  }
+  tabs.forEach(function(tab, i){
+    tab.addEventListener('click', function(){ selectTab(tab); });
+    tab.addEventListener('keydown', function(e){
+      var n = null;
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown') n = tabs[(i+1)%tabs.length];
+      else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = tabs[(i-1+tabs.length)%tabs.length];
+      else if(e.key === 'Home') n = tabs[0];
+      else if(e.key === 'End') n = tabs[tabs.length-1];
+      if(n){ e.preventDefault(); selectTab(n); n.focus(); }
+    });
+  });
+
+  // ---- Clam shell: scroll to top ----
+  document.getElementById('clam').addEventListener('click', function(){
+    window.scrollTo({top:0, behavior: (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth')});
+    var h = document.querySelector('.brand'); if(h){ h.focus && h.focus(); }
+  });
+})();
+</script>
+</body>
+</html>

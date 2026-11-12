@@ -1,0 +1,151 @@
+{
+  "auth": {
+    "loginPath": "/api/auth/login",
+    "method": "POST",
+    "credentials": { "email": "owner@nigeria-demo.cognivo", "password": "SEED_PASSWORD" },
+    "sessionPath": "/api/auth/me",
+    "expectAuthenticated": "owner@nigeria-demo.cognivo",
+    "cookieName": "cognivo_session"
+  },
+  "note": "credentials.password is the install's SEED_PASSWORD; the demo seed sets the owner account to it and forge injects the same value when probing.",
+  "criteria": [
+    {
+      "id": "health-db",
+      "feature": "operability",
+      "description": "health endpoint reports the database is reachable",
+      "check": { "method": "GET", "path": "/health", "expectStatus": 200, "unauth": true, "contains": "ok" }
+    },
+    {
+      "id": "brand-config",
+      "feature": "white-label-branding",
+      "description": "public brand config is served",
+      "check": { "method": "GET", "path": "/api/brand", "expectStatus": 200, "unauth": true, "contains": "brandName" }
+    },
+    {
+      "id": "catalog-list",
+      "feature": "catalog-discovery",
+      "description": "public catalogue lists seeded courses",
+      "check": { "method": "GET", "path": "/api/catalog/courses", "expectStatus": 200, "unauth": true, "contains": "courses" }
+    },
+    {
+      "id": "catalog-search",
+      "feature": "catalog-discovery",
+      "description": "catalogue search accepts a query",
+      "check": { "method": "GET", "path": "/api/catalog/courses?q=data", "expectStatus": 200, "unauth": true, "contains": "courses" }
+    },
+    {
+      "id": "catalog-domains",
+      "feature": "catalog-discovery",
+      "description": "learning domains are listed",
+      "check": { "method": "GET", "path": "/api/catalog/domains", "expectStatus": 200, "unauth": true, "contains": "name" }
+    },
+    {
+      "id": "recommendations",
+      "feature": "catalog-discovery",
+      "description": "recommendations endpoint returns courses for anonymous visitors",
+      "check": { "method": "GET", "path": "/api/catalog/recommendations", "expectStatus": 200, "unauth": true }
+    },
+    {
+      "id": "feedback-public",
+      "feature": "feedback-threads",
+      "description": "course feedback and aggregate are public",
+      "check": { "method": "GET", "path": "/api/courses/intro-to-data-literacy/feedback", "expectStatus": 200, "unauth": true }
+    },
+    {
+      "id": "wishlist-requires-auth",
+      "feature": "auth-identity-access",
+      "description": "wishlist rejects anonymous callers",
+      "check": { "method": "GET", "path": "/api/wishlist", "unauth": true, "expectStatus": 401 }
+    },
+    {
+      "id": "enrollments-require-auth",
+      "feature": "auth-identity-access",
+      "description": "learner enrollments reject anonymous callers",
+      "check": { "method": "GET", "path": "/api/enrollments", "unauth": true, "expectStatus": 401 }
+    },
+    {
+      "id": "owner-requires-auth",
+      "feature": "owner-dashboard",
+      "description": "owner overview rejects anonymous callers",
+      "check": { "method": "GET", "path": "/api/owner/overview", "unauth": true, "expectStatus": 401 }
+    },
+    {
+      "id": "me-authenticated",
+      "feature": "auth-identity-access",
+      "description": "a real login establishes a working session",
+      "check": { "method": "GET", "path": "/api/auth/me", "requiresAuth": true, "expectStatus": 200, "contains": "owner@nigeria-demo.cognivo" }
+    },
+    {
+      "id": "owner-overview-signed-in",
+      "feature": "owner-dashboard",
+      "description": "owner dashboard data loads when signed in as owner",
+      "check": { "method": "GET", "path": "/api/owner/overview", "requiresAuth": true, "expectStatus": 200 }
+    },
+    {
+      "id": "owner-export-csv",
+      "feature": "dashboard-export",
+      "description": "owner dashboard exports CSV when signed in",
+      "check": { "method": "GET", "path": "/api/exports/owner.csv", "requiresAuth": true, "expectStatus": 200 }
+    },
+    {
+      "id": "audit-log",
+      "feature": "information-governance",
+      "description": "audit log is viewable by the owner",
+      "check": { "method": "GET", "path": "/api/admin/audit", "requiresAuth": true, "expectStatus": 200 }
+    },
+    {
+      "id": "demo-personas",
+      "feature": "persona-switch-demo",
+      "description": "demo profile exposes the four clickable personas",
+      "check": { "method": "GET", "path": "/api/auth/demo/personas", "unauth": true, "expectStatus": 200, "contains": ["learner", "provider", "owner"] }
+    },
+    {
+      "id": "marketing-home",
+      "feature": "marketing-site",
+      "description": "the public marketing home is served to anonymous visitors",
+      "check": { "method": "GET", "path": "/", "unauth": true, "expectStatus": 200, "minBytes": 100 }
+    },
+    {
+      "id": "course-player-requires-auth",
+      "feature": "course-player",
+      "description": "the course player rejects anonymous callers",
+      "check": { "method": "GET", "path": "/api/courses/intro-to-data-literacy/player", "unauth": true, "expectStatus": 401 }
+    },
+    {
+      "id": "certificates-require-auth",
+      "feature": "learner-dashboard",
+      "description": "the learner's certificates list rejects anonymous callers",
+      "check": { "method": "GET", "path": "/api/certificates", "unauth": true, "expectStatus": 401 }
+    },
+    {
+      "id": "calendar-requires-auth",
+      "feature": "wishlist-calendar",
+      "description": "the learner calendar rejects anonymous callers",
+      "check": { "method": "GET", "path": "/api/calendar", "unauth": true, "expectStatus": 401 }
+    },
+    {
+      "id": "provider-overview-requires-auth",
+      "feature": "provider-dashboard",
+      "description": "the provider overview rejects anonymous callers",
+      "check": { "method": "GET", "path": "/api/provider/overview", "unauth": true, "expectStatus": 401 }
+    },
+    {
+      "id": "quiz-test-certificate-flow",
+      "feature": "quiz-test-certificate",
+      "description": "the quiz to certification test to certificate journey",
+      "check": { "kind": "flow", "flow": "quiz-test-certificate" }
+    },
+    {
+      "id": "roadmap-generate-flow",
+      "feature": "ai-roadmap",
+      "description": "generating the AI learning roadmap end to end",
+      "check": { "kind": "flow", "flow": "roadmap-generate" }
+    },
+    {
+      "id": "theme-appearance-flow",
+      "feature": "theme-appearance",
+      "description": "Light/Dark/System toggle persists and drives CSS custom properties (client-only; verified by the Playwright theme journey)",
+      "check": { "kind": "flow", "flow": "theme-toggle" }
+    }
+  ]
+}

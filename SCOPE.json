@@ -1,0 +1,99 @@
+{
+  "product": "Cognivo LMS",
+  "instance": "nigeria-demo",
+  "features": [
+    {
+      "id": "white-label-branding",
+      "title": "White-label branding (name in header, title, footer)",
+      "definitionOfDone": ["brand resolves org -> BRAND_NAME -> 'Nigeria Demo'", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "theme-appearance",
+      "title": "Light/Dark/System appearance setting, persisted",
+      "definitionOfDone": ["default System via prefers-color-scheme", "visible toggle in Settings", "colours from CSS custom properties", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "auth-identity-access",
+      "title": "Real auth, SSO (OIDC), RBAC, tenant isolation",
+      "definitionOfDone": ["local sign-up/sign-in/out + reset", "OIDC code flow with PKCE+state+nonce and JWKS validation", "RBAC enforced server-side", "cross-tenant access impossible", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "persona-switch-demo",
+      "title": "No-login persona switch (demo profile)",
+      "definitionOfDone": ["four persona buttons establish a real seeded session", "disabled in production profile", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "catalog-discovery",
+      "title": "Searchable catalogue, domains, recommendations",
+      "definitionOfDone": ["30+ courses across several domains in mixed formats", "search + filter by domain/format/level", "personalised recommendations", "public to potential learners", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "course-player",
+      "title": "Course content: video, downloadable reading, quizzes",
+      "definitionOfDone": ["video with captions", "reading viewable + downloadable", "progress tracked", "mark lesson complete", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "quiz-test-certificate",
+      "title": "Quiz -> certification test -> certificate",
+      "definitionOfDone": ["quiz scored", "schedule + take certification test", "pass issues a verifiable certificate", "public verify route", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "feedback-threads",
+      "title": "Completion-gated feedback with provider reply thread",
+      "definitionOfDone": ["feedback blocked unless course completed", "aggregate rating + feedback public to all", "provider reply shown as a thread", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "ai-roadmap",
+      "title": "AI-built learning roadmap",
+      "definitionOfDone": ["generate ordered roadmap with reasons", "rules default, optional LLM", "regenerate", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "wishlist-calendar",
+      "title": "Wishlist + calendar progress view",
+      "definitionOfDone": ["add/remove wishlist", "calendar spans started + completed + scheduled exams", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "learner-dashboard",
+      "title": "Registered learner dashboard",
+      "definitionOfDone": ["completed courses, certificates, scheduled exams, wishlist, roadmap, continue-learning", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "provider-dashboard",
+      "title": "Course-provider dashboard",
+      "definitionOfDone": ["wishlist counts, active progress, completions, certification funnel per course", "feedback reply", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "owner-dashboard",
+      "title": "Platform-owner dashboard",
+      "definitionOfDone": ["quality, feedback, attendance/completion, testing in-progress + success rates, time series", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "dashboard-export",
+      "title": "Exportable dashboards",
+      "definitionOfDone": ["CSV export per dashboard with RBAC", "print/PDF route", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "information-governance",
+      "title": "Audit log, data export/erasure, consent, legal",
+      "definitionOfDone": ["immutable audit log, owner-viewable", "self-serve data export + erasure", "cookie/terms/privacy consent + pages", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "marketing-site",
+      "title": "Public marketing website",
+      "definitionOfDone": ["home, features, pricing (Starter/Pro/Enterprise + trial CTA, display only), about, FAQ, legal", "CTAs wired to real auth", "yellow clam-shell icon bottom-right on homepage", "fits 375px", "meets AA in every theme shipped"]
+    },
+    {
+      "id": "operability",
+      "title": "Boot/migrate/health/profiles",
+      "definitionOfDone": ["env validated at boot naming missing var", "migrations on boot", "DB retry with backoff", "/health checks DB", "graceful shutdown", "demo/production profiles"]
+    }
+  ],
+  "deferred": [
+    "group/cohort assignment with deadlines",
+    "anti-cheating integrity (identity verification, lockdown browser, AI proctoring/viva)",
+    "freemium audit-vs-paid access",
+    "enterprise seat-based / skill-gap / role-play extensions",
+    "learner editing of submitted feedback",
+    "specialisations / professional certificates / degrees as distinct product tiers"
+  ]
+}
