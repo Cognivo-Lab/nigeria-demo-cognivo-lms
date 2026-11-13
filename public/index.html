@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cognivo LMS — Learn. Certify. Grow.</title>
+  <meta name="description" content="Cognivo LMS — a demo learning management platform with courses, certificates, quizzes and analytics dashboards." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar" role="banner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🎓</span>
+      <span class="brand-name" id="brand-name">Cognivo LMS</span>
+    </div>
+    <nav class="main-nav" aria-label="Primary">
+      <button class="nav-link" data-route="home">Home</button>
+      <button class="nav-link" data-route="catalogue">Catalogue</button>
+      <button class="nav-link" data-route="features">Features</button>
+      <button class="nav-link" data-route="pricing">Pricing</button>
+      <button class="nav-link" data-route="dashboard" id="nav-dashboard" hidden>Dashboard</button>
+    </nav>
+    <div class="topbar-right">
+      <label class="theme-select">
+        <span class="sr-only">Appearance</span>
+        <select id="theme" aria-label="Appearance">
+          <option value="system">🖥 System</option>
+          <option value="light">☀ Light</option>
+          <option value="dark">🌙 Dark</option>
+        </select>
+      </label>
+      <div class="persona-pill" id="persona-pill" title="Current persona">
+        <span id="persona-label">Potential Learner</span>
+        <button id="switch-persona" class="link-btn">switch</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1" aria-live="polite"></main>
+
+  <footer class="footer" role="contentinfo">
+    <p><span id="footer-brand">Cognivo LMS</span> — demo platform. No login required; pick a persona to explore. Built with accessibility, security & information-governance best practices in mind.</p>
+    <nav class="footer-nav" aria-label="Footer">
+      <button class="link-btn" data-route="features">Features</button>
+      <button class="link-btn" data-route="pricing">Pricing</button>
+      <button class="link-btn" data-route="about">About</button>
+      <button class="link-btn" data-route="faq">FAQ</button>
+      <button class="link-btn" data-route="terms">Terms</button>
+      <button class="link-btn" data-route="governance">Privacy &amp; Governance</button>
+    </nav>
+  </footer>
+
+  <!-- Yellow clam shell icon (bottom-right of homepage) -->
+  <button id="clam" class="clam" title="A little treasure" aria-label="Surprise clam shell">
+    <svg viewBox="0 0 64 64" width="44" height="44" role="img" aria-hidden="true">
+      <defs>
+        <linearGradient id="clamGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffe27a"/>
+          <stop offset="100%" stop-color="#f6b60c"/>
+        </linearGradient>
+      </defs>
+      <path d="M32 54 C10 54 4 30 4 24 C4 20 8 18 12 22 C14 12 20 10 22 18 C24 10 30 10 32 18 C34 10 40 10 42 18 C44 10 50 12 52 22 C56 18 60 20 60 24 C60 30 54 54 32 54 Z"
+            fill="url(#clamGrad)" stroke="#c98f00" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M32 52 L22 22 M32 52 L32 20 M32 52 L42 22" stroke="#c98f00" stroke-width="1.5" fill="none" opacity="0.7"/>
+    </svg>
+  </button>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

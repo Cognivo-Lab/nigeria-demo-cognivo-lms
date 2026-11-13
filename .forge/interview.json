@@ -1,0 +1,44 @@
+{
+  "idea": "Forge LMS is a learning management platform. This novel learning management platform is to have similar capabilities to that of Coursera learning platform (identify features by exploring website https://www.coursera.org), including Certificates, learning domain categories, the ability attend learning by viewing content and completing quizzes, and for those who complete a course to optionally complete a test to obtain certification on that learning topic. dashboard views for potential learners, for registered learners, for registered learning providers, and for platform owner.\n\nCreate a demo platform with sample course material and sample tests. Also create dummy data for historic course completion and dummy test results - this is then used to have meaningful historic data for charts and reports. The demo platform does not require the user to login; instead the persona is selected by clicking on a button.\n\nFor registered learner to have view across their completed courses, certificates, scheduled exams, personal list of courses desired to complete, and personal roadmap built using AI. For learners who complete a specific course they can optionally submit feedback, and also optionally complete a test to obtain a course certificate. Learners who have not completed a specific course cannot submit feedback for a course that they have not completed. Learners can add courses to their \"wish list\" and view their progress as a calendar view spanning all started courses and completed courses.\n\nFor registered course providers to have view on number of learners who have marked their course on their wish list, active progress across each of their courses, count of course completion, and a view on learner's certification progress for their courses, tests, and certifications. Course providers can provide feedback on specific learner submitted feedback comments for a specific course - with this feedback visible to all platform users and displayed as a thread between the specific learner and the course provider.\n\nFor the platform owner to have a view across quality, feedback, course attendance and completion, testing in-progress and success rates.\n\nFuture product roadmap to allow for groups of users to be assigned courses to complete, and for there to be a deadline for completing assigned courses and deadline for completing course certification.\n\nThe catalogue of course material to be intuitive and offer excellent customer experience. To follow best practices in terms of accessibility, excellent user interface, cyber security, information governance and the ability to export dashboards.\n\nThe content for the courses could include video recorded sections and written content. Once the learner has completed a course they can score and provide feedback. The aggregate score is visible to all users, together with the feedback. Future roadmap to provide mechanism for learners to update their feedback score & feedback comments.\n\nIn terms of platform architecture: Use Postgres database as data repository.\n\nScalable Delivery & Discovery: Searchable course catalogs, personalised recommendations, and automated administrative dashboards.\n\nFuture roadmap to include Assessment & Anti-Cheating Integrity: Uses identity verification, lockdown browsers, time/attempt limits, and AI-based proctoring/viva exams to maintain credential validity.\n\nCatalog & Content Offerings: Diverse Learning Formats: Includes individual video courses, guided projects, Specialisations, Professional Certificates, Masterclass modules, and full online degrees.\n\nAsynchronous & Flexible Delivery: Allows learners to engage in self-paced, video-based learning integrated with additional reading materials (available to view or download), quizzes, course assignments, and upon completion of course content to optionally take a test to obtain certification.\n\nFuture roadmap: Audit vs. Paid Access: Features a freemium model where learners can audit course materials for free, while paying for graded assignments, proctored assessments, and verified test certificates.\n\nTo extend the public version of \"Forge LMS\" to meet requirements for Enterprise & Institutions: \n-- Seat-Based & Curated Training: Provides businesses and organisations with tailored training catalogs and industry-recognised credentials to up-skill and re-skill employees.\n-- Skill Gap Analysis & Assessment: Tools to diagnose team skill deficiencies, run interactive software simulations, and track proficiency metrics.\n-- Skills Tracks & Role-Play: Role-specific learning paths paired with AI-powered guidance and role-play features.\n\nDisplay a yellow clam shell icon in the bottom right corner of the homepage screen.",
+  "messages": [
+    {
+      "role": "assistant",
+      "content": "Thanks for such a rich brief — there's a lot here already. Before I ask anything else: what would you like to call this product? (And heads-up: you can attach a spec or requirements doc via the 📎 button any time and I'll fold it in.)\n\n[OPTIONS] Forge LMS | Something else I'll type | You pick a name for me"
+    },
+    {
+      "role": "user",
+      "content": "Cognivo LMS"
+    },
+    {
+      "role": "assistant",
+      "content": "Great name — Cognivo LMS it is, and you can rename it anytime.\n\nYou've flagged a lot as \"future roadmap\" versus core — for this first demo build, which personas' dashboards do you most want fully fleshed out, so I know where to concentrate the sample data and charts?\n\n[OPTIONS] All four personas | Registered learner | Course provider | Platform owner"
+    },
+    {
+      "role": "user",
+      "content": "all four personas: potential learners who are browsing the course catalogue and platform, registered learners, course providers, platform owner"
+    },
+    {
+      "role": "assistant",
+      "content": "Perfect — four personas, with potential learners getting a browse-the-catalogue experience too.\n\nA few of your core features are interactive flows, not just dashboards — which of these must work end-to-end in the demo versus just being visible?\n\n[OPTIONS] Take quiz → test → certificate | Submit & thread feedback | AI-built learning roadmap | Wishlist & calendar view"
+    },
+    {
+      "role": "user",
+      "content": "Take quiz → test → certificate; Submit & thread feedback; AI-built learning roadmap; Wishlist & calendar view"
+    },
+    {
+      "role": "assistant",
+      "content": "Nice — all four core flows working end-to-end. That tells me where the real effort goes.\n\nLast one: to seed a convincing catalogue and charts, how broad should the sample content be, and is there anything that would make this demo feel \"done\" to you?\n\n[OPTIONS] A few domains, ~10–15 courses | Several domains, 30+ courses | Mix of formats (video + reading + quiz) | Rich historic data for charts"
+    },
+    {
+      "role": "user",
+      "content": "Several domains, 30+ courses; Mix of formats (video + reading + quiz); Rich historic data for charts"
+    },
+    {
+      "role": "assistant",
+      "content": "Perfect — that gives me everything I need to scope a convincing demo."
+    }
+  ],
+  "done": true,
+  "name": "Cognivo LMS",
+  "brief": "Cognivo LMS is a Coursera-style learning platform demo with no login — personas are chosen by button: potential learner (browsing), registered learner, course provider, and platform owner, each with a tailored dashboard.\nFour core flows work end-to-end: quiz → test → certificate; submit-and-thread course feedback (gated to course completers, with provider replies visible to all); an AI-built learning roadmap; and a wishlist plus calendar progress view.\nCatalogue spans several domains with 30+ courses in mixed formats (video, downloadable reading, quizzes), backed by rich dummy history of completions and test results so charts and reports feel real.\nProvider views cover wishlist counts, active progress, completions, and certification progress; the owner view spans quality, feedback, attendance/completion, and testing in-progress and success rates.\nBuilt on Postgres, with attention to accessibility, strong UI/UX, security, information governance, and exportable dashboards. A yellow clam shell icon sits bottom-right on the homepage. Roadmap items (group assignments/deadlines, proctoring, freemium audit, enterprise) noted but out of scope for this build."
+}

@@ -1,0 +1,173 @@
+{
+  "at": "2026-11-13T09:47:03.806Z",
+  "ok": true,
+  "results": [
+    {
+      "id": "smoke-root",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET / → 200 (signed in)"
+    },
+    {
+      "id": "health-db",
+      "feature": "operability",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /health → 200"
+    },
+    {
+      "id": "brand-config",
+      "feature": "white-label-branding",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/brand → 200"
+    },
+    {
+      "id": "catalog-list",
+      "feature": "catalog-discovery",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/catalog/courses → 200"
+    },
+    {
+      "id": "catalog-search",
+      "feature": "catalog-discovery",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/catalog/courses?q=data → 200"
+    },
+    {
+      "id": "catalog-domains",
+      "feature": "catalog-discovery",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/catalog/domains → 200"
+    },
+    {
+      "id": "recommendations",
+      "feature": "catalog-discovery",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/catalog/recommendations → 200"
+    },
+    {
+      "id": "feedback-public",
+      "feature": "feedback-threads",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/courses/intro-to-data-literacy/feedback → 200"
+    },
+    {
+      "id": "wishlist-requires-auth",
+      "feature": "auth-identity-access",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/wishlist → 401"
+    },
+    {
+      "id": "enrollments-require-auth",
+      "feature": "auth-identity-access",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/enrollments → 401"
+    },
+    {
+      "id": "owner-requires-auth",
+      "feature": "owner-dashboard",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/owner/overview → 401"
+    },
+    {
+      "id": "me-authenticated",
+      "feature": "auth-identity-access",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/auth/me → 200 (signed in)"
+    },
+    {
+      "id": "owner-overview-signed-in",
+      "feature": "owner-dashboard",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/owner/overview → 200 (signed in)"
+    },
+    {
+      "id": "owner-export-csv",
+      "feature": "dashboard-export",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/exports/owner.csv → 200 (signed in)"
+    },
+    {
+      "id": "audit-log",
+      "feature": "information-governance",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/admin/audit → 200 (signed in)"
+    },
+    {
+      "id": "demo-personas",
+      "feature": "persona-switch-demo",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/auth/demo/personas → 200"
+    },
+    {
+      "id": "marketing-home",
+      "feature": "marketing-site",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET / → 200"
+    },
+    {
+      "id": "course-player-requires-auth",
+      "feature": "course-player",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/courses/intro-to-data-literacy/player → 401"
+    },
+    {
+      "id": "certificates-require-auth",
+      "feature": "learner-dashboard",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/certificates → 401"
+    },
+    {
+      "id": "calendar-requires-auth",
+      "feature": "wishlist-calendar",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/calendar → 401"
+    },
+    {
+      "id": "provider-overview-requires-auth",
+      "feature": "provider-dashboard",
+      "ok": true,
+      "skipped": false,
+      "detail": "GET /api/provider/overview → 401"
+    },
+    {
+      "id": "quiz-test-certificate-flow",
+      "feature": "quiz-test-certificate",
+      "ok": true,
+      "skipped": true,
+      "detail": "check.kind \"flow\" (flow \"quiz-test-certificate\") needs a driver the acceptance runner does not have"
+    },
+    {
+      "id": "roadmap-generate-flow",
+      "feature": "ai-roadmap",
+      "ok": true,
+      "skipped": true,
+      "detail": "check.kind \"flow\" (flow \"roadmap-generate\") needs a driver the acceptance runner does not have"
+    },
+    {
+      "id": "theme-appearance-flow",
+      "feature": "theme-appearance",
+      "ok": true,
+      "skipped": true,
+      "detail": "check.kind \"flow\" (flow \"theme-toggle\") needs a driver the acceptance runner does not have"
+    }
+  ]
+}

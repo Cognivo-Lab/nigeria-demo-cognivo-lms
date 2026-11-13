@@ -1,0 +1,142 @@
+{
+  "at": "2026-11-13T09:47:08.502Z",
+  "ok": true,
+  "ran": true,
+  "checks": [
+    {
+      "name": "config lint",
+      "ok": true,
+      "skipped": false,
+      "detail": "Config-contract lint clean.",
+      "ms": 6
+    },
+    {
+      "name": "responsive & contrast",
+      "ok": true,
+      "skipped": false,
+      "detail": "1 advisory finding(s) (1 responsive) — none blocking",
+      "ms": 5
+    },
+    {
+      "name": "e2e spec lint",
+      "ok": true,
+      "skipped": true,
+      "detail": "no Playwright specs found",
+      "ms": 3
+    },
+    {
+      "name": "external services",
+      "ok": true,
+      "skipped": false,
+      "detail": "2/4 ready · 2 optional not set",
+      "ms": 2
+    },
+    {
+      "name": "install",
+      "ok": true,
+      "skipped": true,
+      "detail": "node_modules present",
+      "ms": 0
+    },
+    {
+      "name": "dependency tree",
+      "ok": true,
+      "skipped": false,
+      "detail": "installed versions satisfy every declared range",
+      "ms": 111
+    },
+    {
+      "name": "dependency audit",
+      "ok": true,
+      "skipped": false,
+      "detail": "No known vulnerabilities in the dependency tree.",
+      "ms": 1102
+    },
+    {
+      "name": "dependency usage",
+      "ok": true,
+      "skipped": false,
+      "detail": "3 runtime dependencies, all reachable",
+      "ms": 6
+    },
+    {
+      "name": "entrypoint",
+      "ok": true,
+      "skipped": false,
+      "detail": "src/server.js present",
+      "ms": 0
+    },
+    {
+      "name": "tests",
+      "ok": true,
+      "skipped": false,
+      "detail": "tests passed (against a real database)",
+      "ms": 1118
+    },
+    {
+      "name": "docker build",
+      "ok": true,
+      "skipped": false,
+      "detail": "image built",
+      "ms": 239
+    },
+    {
+      "name": "boot & health",
+      "ok": true,
+      "skipped": false,
+      "detail": "healthy on :36829; Acceptance passed: 21 criteria (20 declared, signed in, 3 declared but NOT CHECKED).",
+      "ms": 2984
+    },
+    {
+      "name": "auth & session",
+      "ok": true,
+      "skipped": false,
+      "detail": "Auth/session smoke passed: login establishes a working, http-safe (non-Secure) session cookie and the session persists.",
+      "ms": 0
+    },
+    {
+      "name": "security",
+      "ok": true,
+      "skipped": false,
+      "detail": "Security probe clean: no known CVEs, no unauthenticated data leaks on common protected routes.",
+      "ms": 0
+    },
+    {
+      "name": "ui hydration",
+      "ok": true,
+      "skipped": false,
+      "detail": "No nonce-less inline bootstrap detected; CSP cannot break hydration.",
+      "ms": 0
+    },
+    {
+      "name": "ui subresources",
+      "ok": true,
+      "skipped": false,
+      "detail": "18 external subresource(s) across 6 route(s) load under the served CSP over http://.",
+      "ms": 0
+    },
+    {
+      "name": "e2e suite",
+      "ok": true,
+      "skipped": true,
+      "detail": "No end-to-end suite found (no test:e2e script, no playwright config).",
+      "ms": 1
+    },
+    {
+      "name": "first-run boot",
+      "ok": true,
+      "skipped": false,
+      "detail": "serves the first-run path on an empty database",
+      "ms": 1666
+    },
+    {
+      "name": "tenant isolation",
+      "ok": true,
+      "skipped": true,
+      "detail": "product does not declare multi-tenancy (no tenantProbe / multiTenant in forge.acceptance.json)",
+      "ms": 0
+    }
+  ],
+  "summary": "Verified: config lint, responsive & contrast, external services, dependency tree, dependency audit, dependency usage, entrypoint, tests, docker build, boot & health, auth & session, security, ui hydration, ui subresources, first-run boot (skipped: e2e spec lint, install, e2e suite, tenant isolation).",
+  "log": "\n### tests\n\nok 13 - owner dashboard reports completion and test pass rates with trend data\n  ---\n  duration_ms: 6.546391\n  type: 'test'\n  ...\n# Subtest: recommendations exclude already-enrolled courses for a learner\nok 14 - recommendations exclude already-enrolled courses for a learner\n  ---\n  duration_ms: 6.914603\n  type: 'test'\n  ...\n# Subtest: POST /api/auth/login authenticates the owner and sets a session cookie\nok 15 - POST /api/auth/login authenticates the owner and sets a session cookie\n  ---\n  duration_ms: 23.645293\n  type: 'test'\n  ...\n# Subtest: POST /api/auth/login rejects a bad password with 401\nok 16 - POST /api/auth/login rejects a bad password with 401\n  ---\n  duration_ms: 20.295472\n  type: 'test'\n  ...\n# Subtest: GET /api/auth/me returns the signed-in user and 401 without a session\nok 17 - GET /api/auth/me returns the signed-in user and 401 without a session\n  ---\n  duration_ms: 21.212022\n  type: 'test'\n  ...\n# Subtest: protected routes reject anonymous callers (401) and roles (403)\nok 18 - protected routes reject anonymous callers (401) and roles (403)\n  ---\n  duration_ms: 23.494875\n  type: 'test'\n  ...\n# Subtest: owner can load overview, CSV export and audit log when signed in\nok 19 - owner can load overview, CSV export and audit log when signed in\n  ---\n  duration_ms: 32.054368\n  type: 'test'\n  ...\n# Subtest: demo personas endpoint lists the four personas\nok 20 - demo personas endpoint lists the four personas\n  ---\n  duration_ms: 0.613339\n  type: 'test'\n  ...\n# Subtest: data export returns the learner record and writes an audit entry\nok 21 - data export returns the learner record and writes an audit entry\n  ---\n  duration_ms: 6.291389\n  type: 'test'\n  ...\n1..21\n# tests 21\n# suites 0\n# pass 21\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1064.303482\n\n\n### docker build\n#0 building with \"default\" instance using docker driver\n\n#1 [internal] load build definition from Dockerfile\n#1 transferring dockerfile: 953B done\n#1 DONE 0.0s\n\n#2 [internal] load metadata for docker.io/library/node:22-alpine\n#2 DONE 0.0s\n\n#3 [internal] load .dockerignore\n#3 transferring context: 124B done\n#3 DONE 0.0s\n\n#4 [1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402\n#4 resolve docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 done\n#4 DONE 0.0s\n\n#5 [internal] load build context\n#5 transferring context: 1.37kB done\n#5 DONE 0.0s\n\n#6 [2/6] WORKDIR /app\n#6 CACHED\n\n#7 [3/6] COPY package*.json ./\n#7 CACHED\n\n#8 [5/6] COPY . .\n#8 CACHED\n\n#9 [4/6] RUN npm ci --no-audit --no-fund --omit=dev || npm install --no-audit --no-fund --omit=dev || npm ci --no-audit --no-fund || npm install --no-audit --no-fund\n#9 CACHED\n\n#10 [6/6] RUN npm run build --if-present\n#10 CACHED\n\n#11 exporting to image\n#11 exporting layers done\n#11 exporting manifest sha256:26c1df0ddc8f5227c541f438c58d846ff8bee6ce1dc71bb2df18489e88c2e5f9 done\n#11 exporting config sha256:dab4449b5a70d1166525bcb44305c60ef429470af86e1a3bcf41363b18d81827 done\n#11 exporting attestation manifest sha256:5046570c937f79f99c5f795ca4b31b15dbd7d53bc013133f3d1e95c9c5417b21 done\n#11 exporting manifest list sha256:18a81bf73ac50bc78ce3ff5383647d3c69ad7c8eb0b1c4b9aafe8216501fe156 done\n#11 naming to docker.io/library/forge-verify-forge-lms-is-a-learning-management-platform-2:verify done\n#11 unpacking to docker.io/library/forge-verify-forge-lms-is-a-learning-management-platform-2:verify 0.1s done\n#11 DONE 0.1s\n\n\n### boot & health\n\n> forge-lms@1.0.0 start\n> node src/server.js\n\n{\"level\":\"info\",\"time\":\"2026-11-13T09:47:02.289Z\",\"msg\":\"migration applied\",\"version\":\"0001_init.sql\"}\n{\"level\":\"info\",\"time\":\"2026-11-13T09:47:02.454Z\",\"msg\":\"demo data seeded\",\"courses\":32,\"learners\":40}\n{\"level\":\"info\",\"time\":\"2026-11-13T09:47:02.456Z\",\"msg\":\"Cognivo LMS listening\",\"url\":\"http://0.0.0.0:8080\",\"profile\":\"demo\"}\n\n"
+}

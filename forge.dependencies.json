@@ -1,0 +1,23 @@
+{
+  "dependencies": [
+    { "id": "postgres" },
+    {
+      "id": "oidc",
+      "optional": true,
+      "why": "SSO sign-in (Google / Microsoft Entra / Okta) for production instances alongside local login.",
+      "withoutIt": "The 'Sign in with SSO' button is hidden; local email/password sign-in still works."
+    },
+    {
+      "id": "smtp",
+      "optional": true,
+      "why": "Sends password-reset emails for production instances.",
+      "withoutIt": "In demo the reset link is written to the server log instead; production without SMTP cannot email resets."
+    },
+    {
+      "id": "ai",
+      "optional": true,
+      "why": "Optional LLM-backed learning-roadmap generation (Anthropic Claude).",
+      "withoutIt": "The roadmap is built by the deterministic rule-based generator — no external calls, works offline."
+    }
+  ]
+}

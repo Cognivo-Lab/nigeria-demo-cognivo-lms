@@ -105,9 +105,7 @@
   .tablist [role=tab]{appearance:none; border:0; background:transparent; color:var(--ink-secondary);
     font:inherit; font-weight:600; font-size:.9375rem; padding:8px var(--s3); border-radius:var(--r-md);
     cursor:pointer; min-height:40px;}
-  .tablist [role=tab][aria-selected=true]{color:var(--brand); background:var(--chip-bg);}
-  :root[data-theme="dark"] .tablist [role=tab][aria-selected=true],
-  :root:not([data-theme="light"]) .tablist [role=tab][aria-selected=true]{color:var(--link);}
+  .tablist [role=tab][aria-selected=true]{color:var(--link); background:var(--chip-bg);}
 
   main{padding:var(--s5) 0 var(--s7);}
   [role=tabpanel][hidden]{display:none;}

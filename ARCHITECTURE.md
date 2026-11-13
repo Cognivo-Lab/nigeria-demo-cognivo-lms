@@ -99,11 +99,22 @@ suggested path, not a proven outcome-lifter.
 
 ## 8. Persistence, migrations, backup
 
-Numbered SQL migrations applied on boot (`db/migrate.ts`), tracked in
-`schema_migrations`; committed to the repo. Cold-DB tolerant: connect-with-backoff
-before migrating so app/DB start order is irrelevant. Backup/restore is documented
-`pg_dump`/`pg_restore` in OPERATIONS.md; demo data is re-seedable with `npm run
-seed`.
+Numbered SQL migrations applied on boot (`src/db/migrate.js`, migrations in
+`src/db/migrations/`), tracked in `schema_migrations`; committed to the repo.
+Cold-DB tolerant: `connectWithRetry` (exponential backoff) before migrating so
+app/DB start order is irrelevant. Backup/restore is documented `pg_dump`/
+`pg_restore` in OPERATIONS.md; demo data is re-seedable with `npm run seed`.
+
+**Implementation note (as built).** Persistence is Postgres via `pg`, selected by
+`DATABASE_URL`. When `DATABASE_URL` is **unset**, the app falls back to an
+in-process, Postgres-compatible engine (`pg-mem`) that runs the *same* SQL,
+*same* migrations and *same* repository code — this is what lets the full test
+suite and a "demo anywhere" container run with zero external services. It is
+**not** persistent across restarts and is never used when `DATABASE_URL` is set
+(production and any real deployment always provide it, giving durable Postgres).
+All access goes through `src/repo.js` with parameterised queries; every tenant/
+user query is id-scoped there. The route handlers load a per-request snapshot
+(cheap at demo scale) and write through the repo's mutation methods.
 
 ## 9. Testing posture
 
